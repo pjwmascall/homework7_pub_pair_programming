@@ -32,7 +32,8 @@ class TestPub(unittest.TestCase):
         self.assertEqual(True, self.pub.do_we_have_drink())
 
     def test_remove_drink(self):
+        length_of_list = len(self.pub.drinks)
         self.pub.remove_drink("corona")
-        self.assertEqual( 1, len(self.pub.drinks))
+        self.assertEqual( length_of_list-1, len(self.pub.drinks))
 
     
