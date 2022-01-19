@@ -1,6 +1,7 @@
 import unittest
 from tests.pub_test import TestPub
 from tests.drinks_test import TestDrink
+from tests.customer_test import TestCustomer
 # when python3 run_tests.py / name will = main / this checks if this is the file we are running.
 # __name__ is a variable set by python / moste of the time it will be the name of the file/module, 
 # but if we execute this through the terminal, python is going to change that name into the string
