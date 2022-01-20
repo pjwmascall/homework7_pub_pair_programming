@@ -9,6 +9,7 @@ class TestCustomer(unittest.TestCase):
         self.customer = Customer("Joe", 60.00)
         self.pub = Pub("The Prancing Pony", 100.00)
         self.drink = Drink("Beer", 5.00)
+        self.pub.drinks.append(Drink("Beer", 5.00))
 
     def test_customer_has_name(self):
         self.assertEqual("Joe", self.customer.name)
@@ -21,6 +22,8 @@ class TestCustomer(unittest.TestCase):
         self.assertEqual(55.00, self.customer.wallet)
 
     def test_buy_drink(self):
+        drink_list_length = len(self.pub.drinks)
         self.customer.buy_drink(self.drink, self.pub)
         self.assertEqual(55.00, self.customer.wallet )
-        self.assertEqual(self.pub.name, "The Prancing Pony")
+        self.assertEqual(105.00, self.pub.till)
+        self.assertEqual(drink_list_length-1, len(self.pub.drinks))

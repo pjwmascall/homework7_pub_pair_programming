@@ -7,9 +7,9 @@ class Customer:
         self.wallet -= amount
 
     def buy_drink(self, drink, pub):
-        pub.remove_drink(drink.name)
-        pub.increase_till(drink.price)
         self.reduce_wallet(drink.price)
+        pub.increase_till(drink.price)
+        pub.remove_drink(drink.name)
         
 
     
