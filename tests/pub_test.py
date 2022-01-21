@@ -2,13 +2,15 @@ import unittest
 from src.pub import Pub
 from src.drinks import Drink
 from src.customer import Customer
+from src.food import Food
 
 class TestPub(unittest.TestCase):
 
     def setUp(self):
         self.pub = Pub("The Prancing Pony", 100.00)
-        self.pub.drinks.append(Drink("Beer", 5.00))
-        self.pub.drinks.append(Drink("Gin", 6.00))
+        self.pub.drinks.append(Drink("Beer", 5.00, 3))
+        self.pub.drinks.append(Drink("Gin", 6.00, 4))
+        self.pub.food.append(Food("Burger", 6.00, 3))
         self.customer = Customer("Joe", 60.00, 19)
 
     def test_pub_has_name(self):

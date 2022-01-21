@@ -4,6 +4,7 @@ class Pub:
         self.name = name
         self.till = till
         self.drinks = []
+        self.food = []
 
     def increase_till(self, amount):
         self.till += amount
@@ -20,3 +21,11 @@ class Pub:
                 self.drinks.remove(drink)
                 return True
         return False
+
+    def remove_food(self, food_choice):
+        for food in self.food:
+            if food.name == food_choice:
+                self.food.remove(food)
+                return True
+        return False
+    
