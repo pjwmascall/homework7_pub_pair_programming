@@ -28,19 +28,23 @@ class Customer:
         return True if (self.drunkenness < 10) else False
 
     def buy_drink(self, drink, pub):
-        if (pub.check_customer_over_18(self)):
-            if (self.can_afford_drink(drink)):
-                if (self.is_not_too_drunk()):
-                    if (pub.remove_drink(drink.name)):
-                        self.reduce_wallet(drink.price)
-                        pub.increase_till(drink.price)
+        if pub.check_customer_over_18(self) is False:
+            return False
+        if pub.has_drink(drink) is False:
+            return False
+        if self.is_not_too_drunk() is False:
+            return False
+        if self.can_afford_drink(pub.drinks[drink]) is False:
+            return False
+        self.reduce_wallet(pub.drinks[drink].price)
+        pub.increase_till(pub.drinks[drink].price)
+        pub.remove_drink(drink)
 
     def buy_food(self, food, pub):
-        if (self.can_afford_food(food)):
-            if(pub.remove_food(food.name)):
-                self.reduce_wallet(food.price)
-                pub.increase_till(food.price)
-
-        
-
-    
+        if pub.has_food(food) is False:
+            return False
+        if self.can_afford_food(pub.food[food]) is False:
+            return False
+        self.reduce_wallet(pub.food[food].price)
+        pub.increase_till(pub.food[food].price)
+        pub.remove_food(food)
