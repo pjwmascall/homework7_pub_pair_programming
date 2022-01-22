@@ -10,40 +10,42 @@ class Customer:
         self.wallet -= amount
 
     def increase_drunkenness(self, drink):
-        self.drunkenness += drink.alcohol_level
+        self.drunkenness += drink[0].alcohol_level
 
     def decrease_drunkenness(self, food):
-        if self.drunkenness > food.rejuvenation_level:
-            self.drunkenness -= food.rejuvenation_level
+        if self.drunkenness > food[0].rejuvenation_level:
+            self.drunkenness -= food[0].rejuvenation_level
         else:
             self.drunkenness = 0
 
     def can_afford_item(self, item):
-        return True if (self.wallet >= item.price) else False
+        return True if (self.wallet >= item[0].price) else False
 
     def is_not_too_drunk(self):
         return True if (self.drunkenness < 10) else False
 
-    def buy_drink(self, drink, pub):
+    def buy_drink(self, drink_name, pub):
         if pub.check_customer_over_18(self) is False:
             return False
-        if pub.has_drink(drink) is False:
+        if pub.has_drink(drink_name) is False:
             return False
         if self.is_not_too_drunk() is False:
             return False
-        if self.can_afford_item(pub.drinks[drink]) is False:
+        drink_choice = pub.drinks[drink_name]
+        if self.can_afford_item(drink_choice) is False:
             return False
-        self.reduce_wallet(pub.drinks[drink].price)
-        pub.increase_till(pub.drinks[drink].price)
-        self.increase_drunkenness(pub.drinks[drink])
-        pub.remove_drink(drink)
+        self.reduce_wallet(drink_choice[0].price)
+        pub.increase_till(drink_choice[0].price)
+        self.increase_drunkenness(drink_choice)
+        pub.remove_drink(drink_name)
 
     def buy_food(self, item, pub):
         if pub.has_food(item) is False:
             return False
-        if self.can_afford_item(pub.food[item]) is False:
+        food_choice = pub.food[item]
+        if self.can_afford_item(food_choice) is False:
             return False
-        self.reduce_wallet(pub.food[item].price)
-        pub.increase_till(pub.food[item].price)
-        self.decrease_drunkenness(pub.food[item])
+        self.reduce_wallet(food_choice[0].price)
+        pub.increase_till(food_choice[0].price)
+        self.decrease_drunkenness(food_choice)
         pub.remove_food(item)

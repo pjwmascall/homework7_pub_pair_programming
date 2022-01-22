@@ -26,29 +26,29 @@ class TestCustomer(unittest.TestCase):
         self.assertEqual(25.00, self.customer.wallet)
 
     def test_increase_drunkenness(self):
-        drink = Drink("Beer", 5.00, 3)
+        drink = [Drink("Beer", 5.00, 3), 1]
         self.customer.increase_drunkenness(drink)
         self.assertEqual(3, self.customer.drunkenness)
 
     def test_decrease_drunkenness(self):
-        food = Food("Burger", 6.00, 3)
+        food = [Food("Burger", 6.00, 3), 1]
         self.customer.drunkenness = 7
         self.customer.decrease_drunkenness(food)
         self.assertEqual(4, self.customer.drunkenness)
 
     def test_decrease_drunkenness_below_zero(self):
-        food = Food("Burger", 6.00, 3)
+        food = [Food("Burger", 6.00, 3), 1]
         self.customer.drunkenness = 0.5
         self.customer.decrease_drunkenness(food)
         self.assertEqual(0, self.customer.drunkenness)
 
     def test_can_afford_item_pass(self):
-        item = Drink("Beer", 5.00, 3)
+        item = [Drink("Beer", 5.00, 3), 1]
         wallet_check = self.customer.can_afford_item(item)
         self.assertEqual(True, wallet_check)
 
     def test_can_afford_item_fail(self):
-        item = Drink("Champagne", 75.00, 8)
+        item = [Drink("Champagne", 75.00, 8), 1]
         wallet_check = self.customer.can_afford_item(item)
         self.assertEqual(False, wallet_check)           
 
@@ -61,7 +61,7 @@ class TestCustomer(unittest.TestCase):
 
     def test_buy_drink(self):
         pub = Pub("The Prancing Pony", 100.00)
-        pub.drinks["Beer"] = Drink("Beer", 5.00, 3)
+        pub.drinks["Beer"] = [Drink("Beer", 5.00, 3), 1]
         self.customer.buy_drink("Beer", pub)
         self.assertEqual(25.00, self.customer.wallet)
         self.assertEqual(105.00, pub.till)
@@ -70,7 +70,7 @@ class TestCustomer(unittest.TestCase):
 
     def test_buy_food(self):
         pub = Pub("The Prancing Pony", 100.00)
-        pub.food["Burger"] = Food("Burger", 6.00, 3)
+        pub.food["Burger"] = [Food("Burger", 6.00, 3), 1]
         self.customer.drunkenness = 7
         self.customer.buy_food("Burger", pub)
         self.assertEqual(24.00, self.customer.wallet)
