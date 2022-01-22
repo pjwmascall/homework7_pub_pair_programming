@@ -20,24 +20,25 @@ class TestPub(unittest.TestCase):
         self.assertEqual(102.50, self.pub.till)
 
     def test_check_customer_age_pass(self):
-        self.customer = Customer("Jack", 60.00, 19)
-        age_check = self.pub.check_customer_over_18(self.customer)
+        customer = Customer("Jack", 60.00, 19)
+        age_check = self.pub.check_customer_over_18(customer)
         self.assertEqual(True, age_check)
 
     def test_check_customer_age_fail(self):
-        self.customer = Customer("Jill", 80.00, 17)
-        age_check = self.pub.check_customer_over_18(self.customer)
+        customer = Customer("Jill", 80.00, 17)
+        age_check = self.pub.check_customer_over_18(customer)
         self.assertEqual(False, age_check)
 
     def test_has_drink_pass(self):
         self.pub.drinks["Beer"] = Drink("Beer", 5.00, 3)
-        self.pub.drinks["Gin"] = Drink("Gin", 6.00, 4)
         self.assertEqual(True, self.pub.has_drink("Beer"))
 
     def test_has_drink_fail(self):
         self.pub.drinks["Beer"] = Drink("Beer", 5.00, 3)
-        self.pub.drinks["Gin"] = Drink("Gin", 6.00, 4)
         self.assertEqual(False, self.pub.has_drink("Wine"))
+
+    def test_has_drink_fail_no_drinks(self):
+        self.assertEqual(False, self.pub.has_drink("Beer"))
 
     def test_remove_drink(self):
         self.pub.drinks["Beer"] = Drink("Beer", 5.00, 3)
@@ -45,18 +46,35 @@ class TestPub(unittest.TestCase):
         self.pub.remove_drink("Beer")
         self.assertEqual(1, len(self.pub.drinks))
 
+    def test_remove_drink_one_drink(self):
+        self.pub.drinks["Beer"] = Drink("Beer", 5.00, 3)
+        self.pub.remove_drink("Beer")
+        self.assertEqual(0, len(self.pub.drinks))
+
+    def test_remove_drink_no_drinks(self):
+        self.assertEqual(None, self.pub.remove_drink("Beer"))
+
     def test_has_food_pass(self):
         self.pub.food["Burger"] = Food("Burger", 6.00, 3)
-        self.pub.food["Chips"] = Food("Chips", 2.00, 1)
         self.assertEqual(True, self.pub.has_food("Burger"))
 
     def test_has_food_fail(self):
         self.pub.food["Burger"] = Food("Burger", 6.00, 3)
-        self.pub.food["Chips"] = Food("Chips", 2.00, 1)
         self.assertEqual(False, self.pub.has_food("Soup"))
+
+    def test_has_food_fail_no_food(self):
+        self.assertEqual(False, self.pub.has_food("Burger"))
 
     def test_remove_food(self):
         self.pub.food["Burger"] = Food("Burger", 6.00, 3)
         self.pub.food["Chips"] = Food("Chips", 2.00, 1)
         self.pub.remove_food("Burger")
-        self.assertEqual(1, len(self.pub.food))   
+        self.assertEqual(1, len(self.pub.food))
+
+    def test_remove_food_one_item(self):
+        self.pub.food["Burger"] = Food("Burger", 6.00, 3)
+        self.pub.remove_food("Burger")
+        self.assertEqual(0, len(self.pub.food))
+
+    def test_remove_food_no_food(self):
+        self.assertEqual(None, self.pub.remove_food("Burger"))

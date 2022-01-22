@@ -19,9 +19,9 @@ class Pub:
         if drink in self.drinks:
             self.drinks.pop(drink)
 
-    def has_food(self, food):
-        return True if food in self.food else False
+    def has_food(self, item):
+        return True if item in self.food else False
 
-    def remove_food(self, food):
-        if food in self.food:
-            self.food.pop(food)
+    def remove_food(self, item):
+        if item in self.food:
+            self.food.pop(item)
