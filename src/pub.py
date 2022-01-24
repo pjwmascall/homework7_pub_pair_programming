@@ -12,6 +12,12 @@ class Pub:
     def check_customer_over_18(self, customer):
         return True if (customer.age >= 18) else False
 
+    def add_drink(self, drink):
+        if drink.name in self.drinks:
+            self.drinks[drink.name][1] += 1
+        else:
+            self.drinks[drink.name] = [drink, 1]
+
     def has_drink(self, drink):
         return True if drink in self.drinks else False
 
@@ -22,11 +28,11 @@ class Pub:
             else:
                 self.drinks.pop(drink)
 
-    def add_drink(self, drink):
-        if drink.name in self.drinks:
-            self.drinks[drink.name][1] += 1
+    def add_food(self, item):
+        if item.name in self.food:
+            self.food[item.name][1] += 1
         else:
-            self.drinks[drink.name] = [drink, 1]
+            self.food[item.name] = [item, 1]
 
     def has_food(self, item):
         return True if item in self.food else False
@@ -37,12 +43,6 @@ class Pub:
                 self.food[item][1] -= 1
             else:
                 self.food.pop(item)
-
-    def add_food(self, item):
-        if item.name in self.food:
-            self.food[item.name][1] += 1
-        else:
-            self.food[item.name] = [item, 1]
 
     def get_total_drinks_and_stock_value(self):
         current_item_quantity = 0

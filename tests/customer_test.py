@@ -61,7 +61,8 @@ class TestCustomer(unittest.TestCase):
 
     def test_buy_drink(self):
         pub = Pub("The Prancing Pony", 100.00)
-        pub.drinks["Beer"] = [Drink("Beer", 5.00, 3), 1]
+        drink = Drink("Beer", 5.00, 3)
+        pub.add_drink(drink)
         self.customer.buy_drink("Beer", pub)
         self.assertEqual(25.00, self.customer.wallet)
         self.assertEqual(105.00, pub.till)
@@ -70,7 +71,8 @@ class TestCustomer(unittest.TestCase):
 
     def test_buy_food(self):
         pub = Pub("The Prancing Pony", 100.00)
-        pub.food["Burger"] = [Food("Burger", 6.00, 3), 1]
+        food = Food("Burger", 6.00, 3)
+        pub.add_food(food)
         self.customer.drunkenness = 7
         self.customer.buy_food("Burger", pub)
         self.assertEqual(24.00, self.customer.wallet)
