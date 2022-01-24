@@ -26,31 +26,37 @@ class TestCustomer(unittest.TestCase):
         self.assertEqual(25.00, self.customer.wallet)
 
     def test_increase_drunkenness(self):
-        drink = [Drink("Beer", 5.00, 3), 1]
+        drink = Drink("Beer", 5.00, 3)
         self.customer.increase_drunkenness(drink)
         self.assertEqual(3, self.customer.drunkenness)
 
     def test_decrease_drunkenness(self):
-        food = [Food("Burger", 6.00, 3), 1]
+        food = Food("Burger", 6.00, 3)
         self.customer.drunkenness = 7
         self.customer.decrease_drunkenness(food)
         self.assertEqual(4, self.customer.drunkenness)
 
     def test_decrease_drunkenness_below_zero(self):
-        food = [Food("Burger", 6.00, 3), 1]
+        food = Food("Burger", 6.00, 3)
         self.customer.drunkenness = 0.5
         self.customer.decrease_drunkenness(food)
         self.assertEqual(0, self.customer.drunkenness)
 
     def test_can_afford_item_pass(self):
-        item = [Drink("Beer", 5.00, 3), 1]
-        wallet_check = self.customer.can_afford_item(item)
-        self.assertEqual(True, wallet_check)
+        item1 = Drink("Beer", 5.00, 3)
+        item2 = Food("Burger", 6.00, 3)
+        wallet_check1 = self.customer.can_afford_item(item1)
+        wallet_check2 = self.customer.can_afford_item(item2)
+        self.assertEqual(True, wallet_check1)
+        self.assertEqual(True, wallet_check2)
 
     def test_can_afford_item_fail(self):
-        item = [Drink("Champagne", 75.00, 8), 1]
-        wallet_check = self.customer.can_afford_item(item)
-        self.assertEqual(False, wallet_check)           
+        item1 = Drink("Champagne", 75.00, 8)
+        item2 = Food("Wagyu", 60.00, 3)
+        wallet_check1 = self.customer.can_afford_item(item1)
+        wallet_check2 = self.customer.can_afford_item(item2)
+        self.assertEqual(False, wallet_check1)
+        self.assertEqual(False, wallet_check2)           
 
     def test_is_not_too_drunk_pass(self):
         self.assertEqual(True, self.customer.is_not_too_drunk())
